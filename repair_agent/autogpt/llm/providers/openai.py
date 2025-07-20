@@ -22,6 +22,8 @@ from autogpt.llm.base import (
 from autogpt.logs import logger
 from autogpt.models.command_registry import CommandRegistry
 
+openai.api_base = "http://127.0.0.1:8000/v1"
+
 # Current as of May 2024 per https://platform.openai.com/docs/pricing
 OPEN_AI_CHAT_MODELS = {
     info.name: info
@@ -82,6 +84,27 @@ OPEN_AI_CHAT_MODELS = {
             max_tokens=16384,
             supports_functions=True,
         ),
+        ChatModelInfo(
+            name="glm-4-9b-0414",
+            prompt_token_cost=0,
+            completion_token_cost=0,
+            max_tokens=128000,
+            supports_functions=True,
+        ),
+        ChatModelInfo(
+            name="deepseek-r1-distill-qwen-32b",
+            prompt_token_cost=0,
+            completion_token_cost=0,
+            max_tokens=128000,
+            supports_functions=True,
+        ),
+        ChatModelInfo(
+            name="codegeex4-all-9b",
+            prompt_token_cost=0,
+            completion_token_cost=0,
+            max_tokens=128000,
+            supports_functions=True,
+        ),
     ]
 }
 
@@ -95,6 +118,9 @@ chat_model_mapping = {
     "gpt-4.1-nano": "gpt-4.1-nano-2025-04-14",
     "gpt-4o": "gpt-4o-2024-08-06",
     "gpt-4o-mini": "gpt-4o-mini-2024-07-18",
+    "glm-4": "glm-4-9b-0414",
+    "deepseek-r1": "deepseek-r1-distill-qwen-32b",
+    "codegeex4": "codegeex4-all-9b",
 }
 
 for alias, target in chat_model_mapping.items():
