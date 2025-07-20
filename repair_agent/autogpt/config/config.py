@@ -152,7 +152,8 @@ class Config(SystemSettings, arbitrary_types_allowed=True):
     def validate_openai_functions(cls, v: bool, values: dict[str, Any]):
         if v:
             smart_llm = values["smart_llm"]
-            assert OPEN_AI_CHAT_MODELS[smart_llm].supports_functions, (
+            model_info = OPEN_AI_CHAT_MODELS[smart_llm] if smart_llm in OPEN_AI_CHAT_MODELS else OPEN_AI_CHAT_MODELS['default']
+            assert model_info.supports_functions, (
                 f"Model {smart_llm} does not support OpenAI Functions. "
                 "Please disable OPENAI_FUNCTIONS or choose a suitable model."
             )

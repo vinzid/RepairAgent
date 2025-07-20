@@ -22,6 +22,8 @@ from autogpt.llm.base import (
 from autogpt.logs import logger
 from autogpt.models.command_registry import CommandRegistry
 
+openai.api_base = "http://127.0.0.1:8000/v1"
+
 # Current as of May 2024 per https://platform.openai.com/docs/pricing
 OPEN_AI_CHAT_MODELS = {
     info.name: info
@@ -80,6 +82,13 @@ OPEN_AI_CHAT_MODELS = {
             prompt_token_cost=0.0005,  # $0.5/M
             completion_token_cost=0.0015,  # $1.5/M
             max_tokens=16384,
+            supports_functions=True,
+        ),
+        ChatModelInfo(
+            name="default",
+            prompt_token_cost=0,
+            completion_token_cost=0,
+            max_tokens=128000,
             supports_functions=True,
         ),
     ]

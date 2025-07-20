@@ -180,7 +180,7 @@ Latest Development:
             elif event.role == "user":
                 new_events.remove(event)
 
-        summ_model = OPEN_AI_CHAT_MODELS[config.fast_llm]
+        summ_model = OPEN_AI_CHAT_MODELS[config.fast_llm] if config.fast_llm in OPEN_AI_CHAT_MODELS else OPEN_AI_CHAT_MODELS['default']
 
         # Determine token lengths for use in batching
         prompt_template_length = len(

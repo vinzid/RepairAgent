@@ -103,7 +103,7 @@ class BaseAgent(metaclass=ABCMeta):
         """
 
         llm_name = self.config.smart_llm if self.big_brain else self.config.fast_llm
-        self.llm = OPEN_AI_CHAT_MODELS[llm_name]
+        self.llm = OPEN_AI_CHAT_MODELS[llm_name] if llm_name in OPEN_AI_CHAT_MODELS else OPEN_AI_CHAT_MODELS['default']
         """The LLM that the agent uses to think."""
 
         self.send_token_limit = send_token_limit or self.llm.max_tokens * 3 / 4

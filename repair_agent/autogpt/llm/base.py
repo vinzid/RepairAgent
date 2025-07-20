@@ -141,11 +141,10 @@ class ChatSequence:
     ) -> TChatSequence:
         from autogpt.llm.providers.openai import OPEN_AI_CHAT_MODELS
 
-        if not model_name in OPEN_AI_CHAT_MODELS:
-            raise ValueError(f"Unknown chat model '{model_name}'")
+        model_info = OPEN_AI_CHAT_MODELS[model_name] if model_name in OPEN_AI_CHAT_MODELS else OPEN_AI_CHAT_MODELS['default']
 
         return cls(
-            model=OPEN_AI_CHAT_MODELS[model_name], messages=list(messages), **kwargs
+            model=model_info, messages=list(messages), **kwargs
         )
 
     @property
