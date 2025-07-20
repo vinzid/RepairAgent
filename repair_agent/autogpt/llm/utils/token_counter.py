@@ -59,6 +59,7 @@ def count_message_tokens(
         tokens_per_name = 1
         encoding_model = re.sub(r"(gpt-4(o|\.\d+)?).*", "\\1", model)
     else:
+        return 200
         raise NotImplementedError(
             f"count_message_tokens() is not implemented for model {model}.\n"
             " See https://github.com/openai/openai-python/blob/main/chatml.md for"
@@ -88,5 +89,8 @@ def count_string_tokens(string: str, model_name: str) -> int:
     Returns:
         int: The number of tokens in the text string.
     """
-    encoding = get_encoding(model_name)
+    try:
+        encoding = get_encoding(model_name)
+    except:
+        return 200
     return len(encoding.encode(string))
