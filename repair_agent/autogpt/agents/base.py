@@ -337,6 +337,9 @@ please use the indicated format and produce a list, like this:
         with open("commands_interface.json") as cif:
             commands_interface = json.load(cif)
 
+        if not isinstance(command_dict, dict):
+            return False
+
         command_dict = command_dict.get("command", {"name": "", "args": {}})
         if command_dict.get("name", None) in list(commands_interface.keys()):
             ref_args = commands_interface[command_dict["name"]]
