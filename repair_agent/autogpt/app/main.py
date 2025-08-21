@@ -4,6 +4,7 @@ import logging
 import math
 import signal
 import sys
+from datetime import datetime
 from pathlib import Path
 from types import FrameType
 from typing import Optional
@@ -257,8 +258,16 @@ def run_interaction_loop(
         # Plan #
         ########
         # Have the agent determine the next action to take.
+        print("-----start thinking-----", datetime.now())
         with spinner:
-            command_name, command_args, assistant_reply_dict = agent.think()
+            try:
+                command_name, command_args, assistant_reply_dict = agent.think()
+            except Exception as e:
+                logger.error(f'Error during thinking: {str(e)}')
+                print("------end thinking------", datetime.now())
+                cycles_remaining -= 1
+                continue
+        print("------end thinking------", datetime.now())
 
         ###############
         # Update User #

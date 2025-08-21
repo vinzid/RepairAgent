@@ -249,7 +249,9 @@ class Agent(BaseAgent):
                     mph.write(mutant_prompt)
                 
                 # Asking main agent for mutants
+                print("-----start query_for_mutants-----", datetime.now())
                 mutants = query_for_mutants(mutant_prompt)
+                print("-----end query_for_mutants-----", datetime.now())
 
                 matched_mutants = re.findall('```(?:json)?(.*?)```', mutants, flags=re.M | re.DOTALL)
                 if len(matched_mutants) == 0:

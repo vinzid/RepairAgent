@@ -3,6 +3,7 @@ from __future__ import annotations
 import functools
 import time
 from dataclasses import dataclass
+from datetime import datetime
 from typing import Callable, List, Optional
 from unittest.mock import patch
 
@@ -259,10 +260,12 @@ def create_chat_completion(
         OpenAIObject: The ChatCompletion response from OpenAI
 
     """
+    print("-----start requesting-----", datetime.now())
     completion: OpenAIObject = openai.ChatCompletion.create(
         messages=messages,
         **kwargs,
     )
+    print("-------get response-------", datetime.now())
     if not hasattr(completion, "error"):
         logger.debug(f"Response: {completion}")
     return completion
